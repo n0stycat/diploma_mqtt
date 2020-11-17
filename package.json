@@ -18,6 +18,10 @@
   "homepage": "https://github.com/n0stycat/diploma_mqtt#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.10.13",
     "mqtt": "^4.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
