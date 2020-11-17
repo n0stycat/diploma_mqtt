@@ -1,0 +1,17 @@
+<table *ngIf="posts.length > 0" border="1px solid black">
+  <tr>
+    <th>Topic</th>
+    <th>Message</th>
+    <th>Client</th>
+    <th>Datetime</th>
+    <th>ID</th>
+  </tr>
+  <tr *ngFor="let post of posts">
+    <td>{{post.topic}}</td>
+    <td>{{post.message}}</td>
+    <td>{{post.clientId}}</td>
+    <td>{{post.datetime}}</td>
+    <td>{{post.messageId}}</td>
+  </tr>
+</table>
+<p *ngIf="posts.length <= 0" class="info-text mat-body-1">No messages yet</p>
