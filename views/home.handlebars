@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>topic</th>
+        <th>message</th>
+        <th>clientId</th>
+        <th>dateTime</th>
+    </tr>
+    {{#each msg}}
+        <tr>
+            <td>{{topic}}</td>
+            <td>{{message}}</td>
+            <td>{{clientId}}</td>
+            <td>{{dateTime}}</td>
+        </tr>
+    {{/each}}
+</table>
