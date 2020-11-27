@@ -3,27 +3,33 @@ const hbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const mqtt = require('mqtt');
 const path = require('path');
-const Broker_URL = 'mqtt://192.168.1.31';
-const options = {
-    //clientId: 'clientId_example',
-    port: 1883,
-    keepalive: 60
-};
+const morgan = require('morgan');
 
 const Message = require('../diploma_mqtt/models/messageSchema');
 const key = require('./config/key')
+
+const Broker_URL = 'mqtt://192.168.1.31';
+const options = {
+    //clientId: 'clientId_example',
+    clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
+    username: 'oladik',
+    password: 'topsecret',
+    port: 1883,
+    keepalive: 60
+};
 
 const app = express();
 const port = 3000;
 app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(morgan('combined', ''));
 
-mongoose.connect(key.mongoURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
-
+mongoose.connect(key.mongoURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
+
 connection.once('open', function () {
-    console.log('Connected to MongoDB.')
+    console.log('Connected to MongoDB.');
     let client = mqtt.connect(Broker_URL, options);
 
     client.on('connect', function () {
@@ -38,6 +44,7 @@ connection.once('open', function () {
     });
 
     client.on('reconnect', function () {
+        console.log('Reconnecting...');
         client = mqtt.connect(Broker_URL, options);
     });
 
@@ -48,7 +55,6 @@ connection.once('open', function () {
     client.on('message', function (topic, message, packet) {
         //console.log(packet);
         const msg = new Message({
-            messageId: 'messageId_example',
             clientId: options.clientId,
             topic: packet.topic,
             message: message,
@@ -62,7 +68,10 @@ connection.once('open', function () {
     });
     client.on('packetreceive', function (packet) {
         //console.log(packet);
-    })
+    });
+    client.on('offline', function () {
+        console.log('MQTT broker is currently offline.');
+    });
 });
 
 app.get('/', async (req, res) => {
@@ -73,8 +82,6 @@ app.get('/', async (req, res) => {
         }
     }).lean();
     res.render("home", {msg});
-
-
 });
 
 app.listen(port, () => {
