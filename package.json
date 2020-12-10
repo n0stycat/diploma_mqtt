@@ -19,13 +19,7 @@
   "dependencies": {
     "aedes": "^0.44.1",
     "aedes-persistence-mongodb": "^8.1.2",
-    "aedes-server-factory": "^0.1.1",
-    "express": "^4.17.1",
-    "express-handlebars": "^5.2.0",
-    "mongoose": "^5.10.13",
-    "morgan": "^1.10.0",
-    "mqemitter-mongodb": "^7.0.4",
-    "mqtt": "^4.2.4"
+    "mqemitter-mongodb": "^7.0.4"
   },
   "devDependencies": {
     "handlebars": "^4.7.6",
