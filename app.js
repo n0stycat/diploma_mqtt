@@ -2,8 +2,8 @@ const mqemitter = require('mqemitter-mongodb');
 const aedesPersistenceMongoDB = require('aedes-persistence-mongodb');
 const fs = require('fs');
 
-const port = 8883; // TLS
-// const port = 1883; // TCP
+//const port = 8883; // TLS
+const port = 1883; // TCP
 const MONGO_URL = 'mongodb+srv://n0sty:mqtt@cluster0.z8myq.mongodb.net/test_db';
 const optionsBroker = {
     id: 'Aedes',
@@ -52,8 +52,8 @@ function startAedes() {
     //   aedes.authenticate = function (client, username, password, callback) {
     //     callback(null, (username === 'oladik'));
     // }
-    const server = require('tls').createServer(optionsServer, aedes.handle); // TLS
-    // const server = require('net').createServer(aedes.handle); // TCP
+    //const server = require('tls').createServer(optionsServer, aedes.handle); // TLS
+    const server = require('net').createServer(aedes.handle); // TCP
 
     server.listen(port, function () {
         console.log('Aedes listening on port:', port);
