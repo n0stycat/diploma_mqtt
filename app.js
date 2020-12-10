@@ -1,7 +1,6 @@
 const mqemitter = require('mqemitter-mongodb');
 const aedesPersistenceMongoDB = require('aedes-persistence-mongodb');
 const fs = require('fs');
-const path = require('path');
 
 const port = 8883; // TLS
 // const port = 1883; // TCP
@@ -16,9 +15,11 @@ const optionsBroker = {
     })
 };
 const optionsServer = {
-    key: fs.readFileSync(path.join('./config') + path.join('/broker') + path.join('/broker.key')),
-    cert: fs.readFileSync(path.join('./config') + path.join('/broker') + path.join('/broker.crt')),
-};
+    ca: fs.readFileSync('ca.crt'),
+    cert: fs.readFileSync('server.crt'),
+    key: fs.readFileSync('server.key'),
+    requestCert: true,
+}
 
 function startAedes() {
     const aedes = require('aedes')(optionsBroker);
@@ -62,33 +63,33 @@ function startAedes() {
     aedes.on('subscribe', function (subscriptions, client) {
         console.log('MQTT client \x1b[32m' + (client ? client.id : client) +
             '\x1b[0m subscribed to topics: ' + subscriptions.map(s => s.topic).join('\n'), 'from broker', aedes.id);
-    })
+    });
 
     aedes.on('unsubscribe', function (subscriptions, client) {
         console.log('MQTT client \x1b[32m' + (client ? client.id : client) +
             '\x1b[0m unsubscribed to topics: ' + subscriptions.join('\n'), 'from broker', aedes.id);
-    })
+    });
 
     aedes.on('client', function (client) {
         console.log('Client Connected: \x1b[33m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id);
-    })
+    });
 
     aedes.on('clientError', function (err) {
         console.log('error');
         console.log(err);
-    })
+    });
 
     aedes.on('clientDisconnect', function (client) {
         console.log('Client Disconnected: \x1b[31m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id);
-    })
+    });
 
     aedes.on('publish', async function (packet, client) {
-        console.log('Client \x1b[31m' + (client ? client.id : 'BROKER_' + aedes.id) + '\x1b[0m has published', packet.payload.toString(), 'on', packet.topic)
+        console.log('Client \x1b[31m' + (client ? client.id : 'BROKER_' + aedes.id) + '\x1b[0m has published', packet.payload.toString(), 'on', packet.topic);
         // let clientName;
         // client ? clientName = client.id.slice(0, 36) : clientName = client;
         // aedes.mq.emit(packet);
         // console.log(packet);
-    })
+    });
 }
 
-startAedes()
+startAedes();
