@@ -4,14 +4,14 @@ const fs = require('fs');
 
 const port = 8883; // TLS
 // const port = 1883; // TCP
-const MONGO_URL = 'mongodb+srv://n0sty:mqtt@cluster0.z8myq.mongodb.net/test_db';
+const key = require('./config/key')
 const optionsBroker = {
     id: 'Aedes',
     mq: mqemitter({
-        url: MONGO_URL
+        url: key.mongoURI
     }),
     persistence: aedesPersistenceMongoDB({
-        url: MONGO_URL,
+        url: key.mongoURI,
     }),
     heartbeatInterval: 300000 //5min
 };
