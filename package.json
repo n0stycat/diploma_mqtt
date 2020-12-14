@@ -4,7 +4,10 @@
   "description": "mqtt project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-mqtt": "nodemon broker",
+    "start-serv": "nodemon app",
+    "dev": "concurrently --kill-others \"npm run start-mqtt\" \"npm run start-serv\""
   },
   "repository": {
     "type": "git",
@@ -19,9 +22,13 @@
   "dependencies": {
     "aedes": "^0.44.1",
     "aedes-persistence-mongodb": "^8.1.2",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "mongoose": "^5.11.7",
     "mqemitter-mongodb": "^7.0.4"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "handlebars": "^4.7.6",
     "nodemon": "^2.0.6"
   }

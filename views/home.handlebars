@@ -3,7 +3,6 @@
         <div class="nav-wrapper container">
             <a href="/" class="brand-logo">MQTT</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Register</a></li>
                 <li><a href="#">Login</a></li>
             </ul>
         </div>
@@ -12,19 +11,17 @@
 <main class="container">
     <table class="striped">
         <tr>
-            <th>Status</th>
             <th>Topic</th>
-            <th>Message</th>
-            <th>ClientId</th>
-            <th>DateTime</th>
+            <th>Payload</th>
+            <th></th>
+            <th></th>
         </tr>
-        {{#each msg}}
+        {{#each resultMap}}
             <tr>
-                <td><i class="material-icons icon-green">brightness_1</i></td>
                 <td>{{topic}}</td>
-                <td>{{message}}</td>
-                <td>{{clientId}}</td>
-                <td>{{dateTime}}</td>
+                <td>{{payload}}</td>
+                <td>{{kq}}</td>
+                <td></td>
             </tr>
         {{/each}}
     </table>
