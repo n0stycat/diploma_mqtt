@@ -7,7 +7,7 @@ const pubsub = require('../diploma_mqtt/models/pubsubSchema');
 const key = require('./config/key')
 
 const app = express();
-const port = 443;
+const port = 3000;
 
 
 let hbs = exphbs.create({
