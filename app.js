@@ -1,19 +1,9 @@
-const fs = require('fs');
-const https = require('https');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
 
 const pubsub = require('../diploma_mqtt/models/pubsubSchema');
-const privateKey = fs.readFileSync(__dirname + '/privkey.pem', 'utf8');
-const certificate = fs.readFileSync(__dirname + '/cert.pem', 'utf8');
-
-const options = {
-    key: privateKey,
-    cert: certificate
-};
-
 const key = require('./config/key')
 
 const app = express();
@@ -73,9 +63,6 @@ app.get('/', async (req, res) => {
     res.render("home", {resultMap});
 });
 
-const server = https.createServer(options, app);
-
-
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 });
