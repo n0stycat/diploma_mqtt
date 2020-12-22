@@ -8,21 +8,51 @@
         </div>
     </nav>
 </header>
-<main class="container">
-    <table class="striped">
+<main class="">
+    <table class="responsive-table striped">
+        <thead>
         <tr>
-            <th>Topic</th>
-            <th>Payload</th>
-            <th></th>
-            <th></th>
+            <th>Тема</th>
+            <th>Дата</th>
+            <th>Стан роботи</th>
+            <th>Режим</th>
+            <th>Зах. потенціал</th>
+            <th>Напруга</th>
+            <th>Струм</th>
+            <th>Стан дверей</th>
+            <th>Температура</th>
+            <th>Стан мережі</th>
+            <th>Лічильник</th>
+            <th>Якість сигналу</th>
+            <th>Стан аккумулятора</th>
+            <th>Час напрацювання</th>
+            <th>Періодичність</th>
+            <th>Аварія</th>
+            <th>Пейлоад</th>
         </tr>
+        </thead>
         {{#each resultMap}}
+            <tbody>
             <tr>
                 <td>{{topic}}</td>
+                <td>{{chas}}</td>
+                <td>{{stan_roboti}}</td>
+                <td>{{rejim_roboti}}</td>
+                <td>{{zah_potencial}}</td>
+                <td>{{napruga}}</td>
+                <td>{{strum}}</td>
+                <td>{{stan_dverei}}</td>
+                <td>{{temperatura}}</td>
+                <td>{{stan_mereji}}</td>
+                <td>{{lichilnik}}</td>
+                <td>{{yakist_signalu}}</td>
+                <td>{{stan_akkumulyatora}}</td>
+                <td>{{chas_napracyuvannya}}</td>
+                <td>{{periodichnist}}</td>
+                <td>{{avariya}}</td>
                 <td>{{payload}}</td>
-                <td>{{kq}}</td>
-                <td></td>
             </tr>
+            </tbody>
         {{/each}}
     </table>
 </main>

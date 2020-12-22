@@ -40,6 +40,23 @@ app.get('/', async (req, res) => {
         } else {
             results.forEach((result) => {
                 resultMap[result._id] = result;
+                if (resultMap[result._id].payload.toString().split('|').length === 15) {
+                    resultMap[result._id]['chas'] = resultMap[result._id].payload.buffer.toString().split('|')[0];
+                    resultMap[result._id]['stan_roboti'] = resultMap[result._id].payload.buffer.toString().split('|')[1];
+                    resultMap[result._id]['rejim_roboti'] = resultMap[result._id].payload.buffer.toString().split('|')[2];
+                    resultMap[result._id]['zah_potencial'] = resultMap[result._id].payload.buffer.toString().split('|')[3];
+                    resultMap[result._id]['napruga'] = resultMap[result._id].payload.buffer.toString().split('|')[4];
+                    resultMap[result._id]['strum'] = resultMap[result._id].payload.buffer.toString().split('|')[5];
+                    resultMap[result._id]['stan_dverei'] = resultMap[result._id].payload.buffer.toString().split('|')[6];
+                    resultMap[result._id]['temperatura'] = resultMap[result._id].payload.buffer.toString().split('|')[7];
+                    resultMap[result._id]['stan_mereji'] = resultMap[result._id].payload.buffer.toString().split('|')[8];
+                    resultMap[result._id]['lichilnik'] = resultMap[result._id].payload.buffer.toString().split('|')[9];
+                    resultMap[result._id]['yakist_signalu'] = resultMap[result._id].payload.buffer.toString().split('|')[10];
+                    resultMap[result._id]['stan_akkumulyatora'] = resultMap[result._id].payload.buffer.toString().split('|')[11];
+                    resultMap[result._id]['chas_napracyuvannya'] = resultMap[result._id].payload.buffer.toString().split('|')[12];
+                    resultMap[result._id]['periodichnist'] = resultMap[result._id].payload.buffer.toString().split('|')[13];
+                    resultMap[result._id]['avariya'] = resultMap[result._id].payload.buffer.toString().split('|')[14];
+                }
             })
         }
     }).lean();
